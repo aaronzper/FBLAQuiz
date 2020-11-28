@@ -8,7 +8,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
-    setFixedSize(400, 150);
+    setFixedSize(400, 165);
 
     QLabel* title = new QLabel("FBLA Quiz Program", this);
     title->setGeometry(0, 0, width(), 60);
@@ -34,7 +34,6 @@ void MainWindow::buttonStartQuizClicked() {
     QString quizPath = QFileDialog::getOpenFileName(this, tr("Open Quiz File"), "", tr("Quiz Files (*.fblaquiz)"));
 
     try {
-        throw std::runtime_error("Bar");
         QuestionSet qSet(quizPath);
         QuizWindow* win = new QuizWindow(qSet);
         win->show();
