@@ -10,29 +10,24 @@ void MessageHandler(QtMsgType type, const QMessageLogContext& context, const QSt
     case QtDebugMsg:
         box->setIcon(QMessageBox::Icon::Information);
         box->setWindowTitle("Debug");
-        box->setText(msg);
         break;
     case QtInfoMsg:
         box->setIcon(QMessageBox::Icon::Information);
         box->setWindowTitle("Info");
-        box->setText(msg);
         break;
     case QtWarningMsg:
         box->setIcon(QMessageBox::Icon::Warning);
         box->setWindowTitle("Warning");
-        box->setText(msg);
         break;
     case QtCriticalMsg:
         box->setIcon(QMessageBox::Icon::Critical);
         box->setWindowTitle("Error");
-        box->setText(msg);
         break;
     case QtFatalMsg:
         box->setIcon(QMessageBox::Icon::Critical);
         box->setWindowTitle("Fatal Error");
-        box->setText(msg);
     }
-
+    box->setText(msg);
     box->show();
 }
 
