@@ -1,6 +1,5 @@
 #ifndef QUESTION_H
 #define QUESTION_H
-#include "questionanswer.h"
 #include <QStringList>
 
 class QString;
