@@ -5,16 +5,16 @@ CONFIG += c++17
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    question.cpp \
-    questionset.cpp \
-    quizwindow.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/question.cpp \
+    src/questionset.cpp \
+    src/quizwindow.cpp
 
 #HEADERS += \
 
 HEADERS += \
-    mainwindow.h \
-    question.h \
-    questionset.h \
-    quizwindow.h
+    include/mainwindow.h \
+    include/question.h \
+    include/questionset.h \
+    include/quizwindow.h
