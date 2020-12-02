@@ -2,13 +2,10 @@
 #define QUESTIONSET_H
 #include <vector>
 #include <QString>
-#include <variant>
 #include "question.h"
+#include "questioncontainer.h"
 
-typedef std::variant<std::monostate, TrueFalseQuestion, MultiChoiceQuestion, ShortAnswerQuestion> QuestionContainer;
-
-class QuestionSet
-{
+class QuestionSet {
     public:
         QuestionSet(QString path);
         QuestionContainer operator[](int i);

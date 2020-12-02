@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "question.h"
+#include "questioncontainer.h"
 
 QuestionSet::QuestionSet(QString path)
 {
@@ -18,23 +19,23 @@ QuestionSet::QuestionSet(QString path)
         int type = line[0].digitValue();
         line.remove(0,1); // remove first char (the question type) since the question constructors dont need that info
 
-        QuestionContainer q;
+        QuestionContainer qc;
         switch(type) {
         case 0:     // True/false
-            q = TrueFalseQuestion(line);
+            qc.init(TrueFalseQuestion(line));
             break;
         case 1:     // Multi-choice
-            q = MultiChoiceQuestion(line);
+            qc.init(MultiChoiceQuestion(line));
             break;
         case 2:     // Short answer
-            q = ShortAnswerQuestion(line);
+            qc.init(ShortAnswerQuestion(line));
             break;
         default:    // Invalid type (including -1, for when its not even an int)
             throw std::runtime_error("Malformed question file");
             break;
         }
 
-        questions.push_back(q);
+        questions.push_back(qc);
     }
 }
 

@@ -6,14 +6,9 @@ QString Question::getQuestion() {
     return question;
 }
 
-QuestionType Question::getType() {
-    return type;
-}
-
 TrueFalseQuestion::TrueFalseQuestion(const QString q, const bool a) {
     question = q;
     answer = a;
-    type = QuestionType::true_false;
 }
 
 TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
@@ -26,8 +21,6 @@ TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
         answer = false;
     else
         throw std::runtime_error("Malformed question file");
-
-    type = QuestionType::true_false;
 }
 
 bool TrueFalseQuestion::getAnswer() {
@@ -38,7 +31,6 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString q, const QString a, const
     question = q;
     answer = a;
     choices = c;
-    type = QuestionType::multi_choice;
 }
 
 MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
@@ -50,8 +42,6 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
     params.removeFirst();
     params.removeFirst();
     choices = params;
-
-    type = QuestionType::multi_choice;
 }
 
 const QString MultiChoiceQuestion::getAnswer() {
@@ -65,7 +55,6 @@ const QStringList MultiChoiceQuestion::getChoices() {
 ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a) {
     question = q;
     answers = a;
-    type = QuestionType::short_answer;
 }
 
 ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
@@ -74,8 +63,6 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 
     params.removeFirst(); // Remove question and leave everything else (the answers)
     answers = params;
-
-    type = QuestionType::short_answer;
 }
 
 const QStringList ShortAnswerQuestion::getAnswers() {

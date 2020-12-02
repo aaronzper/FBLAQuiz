@@ -6,14 +6,11 @@ class QString;
 
 enum QuestionType { true_false, multi_choice, short_answer };
 
-class Question
-{
+class Question {
     public:
         QString getQuestion();
-        QuestionType getType();
     protected:
         QString question;
-        QuestionType type;
 };
 
 class TrueFalseQuestion : public Question {
