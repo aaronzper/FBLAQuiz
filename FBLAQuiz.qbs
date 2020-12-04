@@ -1,6 +1,7 @@
 import qbs
 
 Product {
+    name: "fbla_quiz"
     type: ["application"]
     Depends {
         name: "Qt"
