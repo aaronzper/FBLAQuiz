@@ -36,6 +36,14 @@ void QuestionContainer::init(ShortAnswerQuestion question)
     _init = true;
 }
 
+template<>
+void QuestionContainer::init(MultiAnswerQuestion question)
+{
+    type = multi_answer;
+    container = question;
+    _init = true;
+}
+
 QuestionType QuestionContainer::getType() {
     ASSERT_INIT();
     return type;
@@ -56,3 +64,7 @@ QuestionContainer::operator ShortAnswerQuestion() const {
     return std::get<ShortAnswerQuestion>(container);
 }
 
+QuestionContainer::operator MultiAnswerQuestion() const {
+    ASSERT_INIT();
+    return std::get<MultiAnswerQuestion>(container);
+}

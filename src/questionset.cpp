@@ -16,19 +16,22 @@ QuestionSet::QuestionSet(QString path)
     QTextStream txt(&file);
 
     for(QString line = txt.readLine(); !line.isNull(); line = txt.readLine()) {
-        int type = line[0].digitValue();
+        QuestionType type = (QuestionType)line[0].digitValue();
         line.remove(0,1); // remove first char (the question type) since the question constructors dont need that info
 
         QuestionContainer qc;
         switch(type) {
-        case 0:     // True/false
+        case true_false:     // True/false
             qc.init(TrueFalseQuestion(line));
             break;
-        case 1:     // Multi-choice
+        case multi_choice:     // Multi-choice
             qc.init(MultiChoiceQuestion(line));
             break;
-        case 2:     // Short answer
+        case short_answer:     // Short answer
             qc.init(ShortAnswerQuestion(line));
+            break;
+        case multi_answer:     // Multi-answer
+            qc.init(MultiAnswerQuestion(line));
             break;
         default:    // Invalid type (including -1, for when its not even an int)
             throw std::runtime_error("Malformed question file");

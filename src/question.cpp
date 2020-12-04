@@ -2,6 +2,10 @@
 #include <QString>
 #include <QStringList>
 
+QStringList getParams(QString s) {
+    return s.split(';', Qt::SkipEmptyParts);
+}
+
 QString Question::getQuestion() {
     return question;
 }
@@ -12,7 +16,7 @@ TrueFalseQuestion::TrueFalseQuestion(const QString q, const bool a) {
 }
 
 TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
-    QStringList params = rawStr.split(';', Qt::SkipEmptyParts);
+    QStringList params = getParams(rawStr);
 
     question = params[0];
     if(params[1].toLower() == "1")
@@ -34,7 +38,7 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString q, const QString a, const
 }
 
 MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
-    QStringList params = rawStr.split(';', Qt::SkipEmptyParts);
+    QStringList params = getParams(rawStr);
     question = params[0];
     answer = params[1];
 
@@ -58,7 +62,7 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a) 
 }
 
 ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
-    QStringList params = rawStr.split(';', Qt::SkipEmptyParts);
+    QStringList params = getParams(rawStr);
     question = params[0];
 
     params.removeFirst(); // Remove question and leave everything else (the answers)
@@ -67,4 +71,40 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 
 const QStringList ShortAnswerQuestion::getAnswers() {
     return answers;
+}
+
+MultiAnswerQuestion::MultiAnswerQuestion(const QString q, const QStringList& a, const QStringList& c) {
+    question = q;
+    answers = a;
+    choices = c;
+}
+
+MultiAnswerQuestion::MultiAnswerQuestion(const QString rawStr) {
+    QStringList params = getParams(rawStr);
+    question = params[0];
+
+    int numAnswers = params[1].toInt();
+
+    // Remove first two elements (question and num of answers) leaving only answers & choices choices
+    params.removeFirst();
+    params.removeFirst();
+
+    int recordedAnswers = 0;
+    for(QString entry : params) {
+        if(recordedAnswers >= numAnswers) {
+            choices.push_back(entry);
+        }
+        else {
+            answers.push_back(entry);
+            recordedAnswers++;
+        }
+    }
+}
+
+const QStringList MultiAnswerQuestion::getAnswers() {
+    return answers;
+}
+
+const QStringList MultiAnswerQuestion::getChoices() {
+    return choices;
 }

@@ -4,7 +4,7 @@
 
 class QString;
 
-enum QuestionType { true_false, multi_choice, short_answer };
+enum QuestionType { true_false = 0, multi_choice = 1, short_answer = 2, multi_answer = 3};
 
 class Question {
     public:
@@ -40,6 +40,17 @@ class ShortAnswerQuestion : public Question {
         const QStringList getAnswers();
     private:
         QStringList answers;
+};
+
+class MultiAnswerQuestion : public Question {
+    public:
+        MultiAnswerQuestion(const QString question, const QStringList& answers, const QStringList& choices);
+        MultiAnswerQuestion(const QString rawStr);
+        const QStringList getAnswers();
+        const QStringList getChoices();
+    private:
+        QStringList answers;
+        QStringList choices;
 };
 
 #endif // QUESTION_H
