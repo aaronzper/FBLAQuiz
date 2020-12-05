@@ -1,6 +1,7 @@
 #ifndef QUIZWINDOW_H
 #define QUIZWINDOW_H
 #include <QWidget>
+#include <QScrollArea>
 #include "questionset.h"
 
 class QuizWindow : public QWidget
@@ -9,7 +10,9 @@ class QuizWindow : public QWidget
     public:
         explicit QuizWindow(QuestionSet qSet, QWidget *parent = nullptr);
 
-    signals:
+    private:
+        void resizeEvent(QResizeEvent* event);
+        QScrollArea* scrollArea;
 
 };
 

@@ -2,20 +2,23 @@
 #include "questionset.h"
 #include <QVBoxLayout>
 #include <QPushButton>
+#include "questionframes.h"
 
 QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
 {
-    QPushButton *button1 = new QPushButton("One");
-    QPushButton *button2 = new QPushButton("Two");
-    QPushButton *button3 = new QPushButton("Three");
-    QPushButton *button4 = new QPushButton("Four");
-    QPushButton *button5 = new QPushButton("Five");
+    QWidget* inner = new QWidget(this);
+    scrollArea = new QScrollArea(this);
+    scrollArea->setWidget(inner);
+    scrollArea->setWidgetResizable(true);
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QVBoxLayout* layout = new QVBoxLayout(inner);
+    for(int i = 1; i <= 100; i++) {
+        TrueFalseFrame* frame = new TrueFalseFrame(TrueFalseQuestion("Is this an example question?", true), i, this);
+        layout->addWidget(frame);
+    }
+}
 
-    layout->addWidget(button1);
-    layout->addWidget(button2);
-    layout->addWidget(button3);
-    layout->addWidget(button4);
-    layout->addWidget(button5);
+void QuizWindow::resizeEvent(QResizeEvent* event) {
+    // Resize scrollbars to fit the whole window whenever it's size changes
+    scrollArea->setFixedSize(geometry().size());
 }

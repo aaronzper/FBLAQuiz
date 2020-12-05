@@ -19,6 +19,7 @@ Product {
             "mainwindow.h",
             "question.h",
             "questioncontainer.h",
+            "questionframes.h",
             "questionset.h",
             "quizwindow.h",
         ]
@@ -31,6 +32,7 @@ Product {
             "mainwindow.cpp",
             "question.cpp",
             "questioncontainer.cpp",
+            "questionframes.cpp",
             "questionset.cpp",
             "quizwindow.cpp",
         ]
