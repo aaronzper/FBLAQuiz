@@ -17,6 +17,7 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
         layout->addWidget(frame);
     }
 
+    setMinimumSize(534, 150);
     resize(534, 550);
 }
 
