@@ -36,11 +36,11 @@ void MainWindow::buttonStartQuizClicked() {
     try {
         QuestionSet qSet(quizPath);
         QuizWindow* win = new QuizWindow(qSet);
-        win->show();
         hide();
+        win->show();
     }
     catch(std::runtime_error e) {
-        qCritical(e.what());
+        qCritical("%s", e.what());
     }
 }
 
