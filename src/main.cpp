@@ -47,8 +47,4 @@ int main(int argc, char *argv[])
         std::cerr << "Fatal Error: " << e.what() << std::endl;
         abort();
     }
-    catch (std::exception e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-        abort();
-    }
 }
