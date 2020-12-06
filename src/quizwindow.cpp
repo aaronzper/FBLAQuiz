@@ -16,6 +16,8 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
         TrueFalseFrame* frame = new TrueFalseFrame(TrueFalseQuestion("Is this an example question?", true), i, this);
         layout->addWidget(frame);
     }
+
+    resize(534, 550);
 }
 
 void QuizWindow::resizeEvent(QResizeEvent* event) {
