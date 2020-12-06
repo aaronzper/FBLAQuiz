@@ -2,6 +2,8 @@
 #include <QString>
 #include <QStringList>
 
+#define MALFORMED_FILE() throw std::runtime_error("Malformed question file");
+
 QStringList getParams(QString s) {
     return s.split(';', Qt::SkipEmptyParts);
 }
@@ -17,6 +19,8 @@ TrueFalseQuestion::TrueFalseQuestion(const QString q, const bool a) {
 
 TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
     QStringList params = getParams(rawStr);
+    if(!(params.size() >= 2))
+        MALFORMED_FILE();
 
     question = params[0];
     if(params[1].toLower() == "1")
@@ -24,7 +28,8 @@ TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
     else if (params[1].toLower() == "0")
         answer = false;
     else
-        throw std::runtime_error("Malformed question file");
+        MALFORMED_FILE();
+
 }
 
 bool TrueFalseQuestion::getAnswer() {
@@ -39,6 +44,9 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString q, const QString a, const
 
 MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
     QStringList params = getParams(rawStr);
+    if(!(params.size() >= 2))
+        MALFORMED_FILE();
+
     question = params[0];
     answer = params[1];
 
@@ -63,6 +71,9 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a) 
 
 ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
     QStringList params = getParams(rawStr);
+    if(!(params.size() >= 2))
+        MALFORMED_FILE();
+
     question = params[0];
 
     params.removeFirst(); // Remove question and leave everything else (the answers)
@@ -81,6 +92,9 @@ MultiAnswerQuestion::MultiAnswerQuestion(const QString q, const QStringList& a, 
 
 MultiAnswerQuestion::MultiAnswerQuestion(const QString rawStr) {
     QStringList params = getParams(rawStr);
+    if(!(params.size() >= 3))
+        MALFORMED_FILE();
+
     question = params[0];
 
     int numAnswers = params[1].toInt();
