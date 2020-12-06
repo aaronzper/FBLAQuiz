@@ -12,8 +12,8 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
     scrollArea->setWidgetResizable(true);
 
     QVBoxLayout* layout = new QVBoxLayout(inner);
-    for(int i = 1; i <= 100; i++) {
-        TrueFalseFrame* frame = new TrueFalseFrame(TrueFalseQuestion("Is this an example question?", true), i, this);
+    for(int i = 1; i <= 10; i++) {
+        TrueFalseFrame* frame = new TrueFalseFrame(TrueFalseQuestion("Is this an example question?", true), i, inner);
         layout->addWidget(frame);
     }
 

@@ -7,6 +7,8 @@ class QuestionFrame : public QFrame {
         Q_OBJECT
     public:
         explicit QuestionFrame(QString questionStr, int number, QWidget* parent = nullptr);
+    protected:
+        unsigned int questionHeight;
 };
 
 class TrueFalseFrame : public QuestionFrame {
