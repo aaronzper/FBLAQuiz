@@ -4,67 +4,67 @@
 #define ASSERT_INIT() if(!_init) throw std::runtime_error("Attempted to access unitialized QuestionContainer");
 
 QuestionContainer::QuestionContainer() {
-    _init = false;
+	_init = false;
 }
 
 template<class T>
 QuestionContainer::QuestionContainer(T question) {
-    init(question);
+	init(question);
 }
 
 template<>
 void QuestionContainer::init(TrueFalseQuestion question)
 {
-    type = true_false;
-    container = question;
-    _init = true;
+	type = true_false;
+	container = question;
+	_init = true;
 }
 
 template<>
 void QuestionContainer::init(MultiChoiceQuestion question)
 {
-    type = multi_choice;
-    container = question;
-    _init = true;
+	type = multi_choice;
+	container = question;
+	_init = true;
 }
 
 template<>
 void QuestionContainer::init(ShortAnswerQuestion question)
 {
-    type = short_answer;
-    container = question;
-    _init = true;
+	type = short_answer;
+	container = question;
+	_init = true;
 }
 
 template<>
 void QuestionContainer::init(MultiAnswerQuestion question)
 {
-    type = multi_answer;
-    container = question;
-    _init = true;
+	type = multi_answer;
+	container = question;
+	_init = true;
 }
 
 QuestionType QuestionContainer::getType() {
-    ASSERT_INIT();
-    return type;
+	ASSERT_INIT();
+	return type;
 }
 
 QuestionContainer::operator TrueFalseQuestion() const {
-    ASSERT_INIT();
-    return std::get<TrueFalseQuestion>(container);
+	ASSERT_INIT();
+	return std::get<TrueFalseQuestion>(container);
 }
 
 QuestionContainer::operator MultiChoiceQuestion() const {
-    ASSERT_INIT();
-    return std::get<MultiChoiceQuestion>(container);
+	ASSERT_INIT();
+	return std::get<MultiChoiceQuestion>(container);
 }
 
 QuestionContainer::operator ShortAnswerQuestion() const {
-    ASSERT_INIT();
-    return std::get<ShortAnswerQuestion>(container);
+	ASSERT_INIT();
+	return std::get<ShortAnswerQuestion>(container);
 }
 
 QuestionContainer::operator MultiAnswerQuestion() const {
-    ASSERT_INIT();
-    return std::get<MultiAnswerQuestion>(container);
+	ASSERT_INIT();
+	return std::get<MultiAnswerQuestion>(container);
 }

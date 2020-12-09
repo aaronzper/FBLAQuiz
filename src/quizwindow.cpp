@@ -6,22 +6,22 @@
 
 QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
 {
-    QWidget* inner = new QWidget(this);
-    scrollArea = new QScrollArea(this);
-    scrollArea->setWidget(inner);
-    scrollArea->setWidgetResizable(true);
+	QWidget* inner = new QWidget(this);
+	scrollArea = new QScrollArea(this);
+	scrollArea->setWidget(inner);
+	scrollArea->setWidgetResizable(true);
 
-    QVBoxLayout* layout = new QVBoxLayout(inner);
-    for(int i = 1; i <= 10; i++) {
-        TrueFalseFrame* frame = new TrueFalseFrame(TrueFalseQuestion("Is this an example question?", true), i, inner);
-        layout->addWidget(frame);
-    }
+	QVBoxLayout* layout = new QVBoxLayout(inner);
+	for(int i = 1; i <= 10; i++) {
+		TrueFalseFrame* frame = new TrueFalseFrame(TrueFalseQuestion("Is this an example question?", true), i, inner);
+		layout->addWidget(frame);
+	}
 
-    setMinimumSize(534, 150);
-    resize(534, 550);
+	setMinimumSize(534, 150);
+	resize(534, 550);
 }
 
 void QuizWindow::resizeEvent(QResizeEvent* event) {
-    // Resize scrollbars to fit the whole window whenever it's size changes
-    scrollArea->setFixedSize(geometry().size());
+	// Resize scrollbars to fit the whole window whenever it's size changes
+	scrollArea->setFixedSize(geometry().size());
 }

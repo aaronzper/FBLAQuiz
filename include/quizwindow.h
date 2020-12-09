@@ -6,13 +6,13 @@
 
 class QuizWindow : public QWidget
 {
-        Q_OBJECT
-    public:
-        explicit QuizWindow(QuestionSet qSet, QWidget *parent = nullptr);
+	Q_OBJECT
+	public:
+		explicit QuizWindow(QuestionSet qSet, QWidget *parent = nullptr);
 
-    private:
-        void resizeEvent(QResizeEvent* event);
-        QScrollArea* scrollArea;
+	private:
+		void resizeEvent(QResizeEvent* event);
+		QScrollArea* scrollArea;
 
 };
 
