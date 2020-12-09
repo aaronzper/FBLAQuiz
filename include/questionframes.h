@@ -20,19 +20,19 @@ class TrueFalseFrame : public QuestionFrame {
 class MultiChoiceFrame : public QuestionFrame {
 	Q_OBJECT
 	public:
-        explicit MultiChoiceFrame(QWidget* parent = nullptr);
+		explicit MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* parent = nullptr);
 };
 
 class ShortAnswerFrame : public QuestionFrame {
 	Q_OBJECT
 	public:
-        explicit ShortAnswerFrame(QWidget* parent = nullptr);
+		explicit ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* parent = nullptr);
 };
 
 class MultiAnswerFrame : public QuestionFrame {
 	Q_OBJECT
 	public:
-        explicit MultiAnswerFrame(QWidget* parent = nullptr);
+		explicit MultiAnswerFrame(MultiAnswerQuestion q, int number, QWidget* parent = nullptr);
 };
 
 #endif // QUESTIONFRAMES_H
