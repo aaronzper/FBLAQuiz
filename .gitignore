@@ -1,3 +1,4 @@
 FBLAQuiz.qbs.user
 .qmake.stash
 build.sh
+default/
