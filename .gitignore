@@ -2,3 +2,5 @@ FBLAQuiz.qbs.user
 .qmake.stash
 build.sh
 default/
+
+.ycm_extra_conf.py
