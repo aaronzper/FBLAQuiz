@@ -1,8 +1,17 @@
 #include "question.h"
 #include <QString>
 #include <QStringList>
+#include <stdexcept>
 
-#define MALFORMED_FILE() throw std::runtime_error("Malformed question file");
+void malformedFile(const std::string& msg = "") {
+	std::string errorMsg = "Malformed quiz file";
+	
+	if(msg != "") {
+		errorMsg += ": " + msg;	
+	}
+	
+	throw std::runtime_error(errorMsg);
+}
 
 QStringList getParams(QString s) {
 	return s.split(';', Qt::SkipEmptyParts);
@@ -20,7 +29,7 @@ TrueFalseQuestion::TrueFalseQuestion(const QString q, const bool a) {
 TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
-		MALFORMED_FILE();
+		malformedFile("Incorrect length of question entry");
 
 	question = params[0];
 	if(params[1].toLower() == "1")
@@ -28,7 +37,7 @@ TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
 	else if (params[1].toLower() == "0")
 		answer = false;
 	else
-		MALFORMED_FILE();
+		malformedFile("Invalid answer for true/false question");
 
 }
 
@@ -45,7 +54,7 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString q, const QString a, const
 MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
-		MALFORMED_FILE();
+		malformedFile("Incorrect length of question entry");
 
 	question = params[0];
 	answer = params[1];
@@ -54,6 +63,10 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
 	params.removeFirst();
 	params.removeFirst();
 	choices = params;
+
+	if(choices.contains(answer)) {
+		malformedFile("Multiple choice question cannot have the correct answer also be an incorrect choice");
+	}
 }
 
 const QString MultiChoiceQuestion::getAnswer() {
@@ -72,7 +85,7 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a) 
 ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
-		MALFORMED_FILE();
+		malformedFile("Incorrect length of question entry");
 
 	question = params[0];
 
@@ -93,7 +106,7 @@ MultiAnswerQuestion::MultiAnswerQuestion(const QString q, const QStringList& a, 
 MultiAnswerQuestion::MultiAnswerQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 3))
-		MALFORMED_FILE();
+		malformedFile("Incorrect length of question entry");
 
 	question = params[0];
 
