@@ -16,25 +16,14 @@ Product {
 		name: "include"
 		prefix: "include/"
 		files: [
-			"mainwindow.h",
-			"question.h",
-			"questioncontainer.h",
-			"questionframes.h",
-			"questionset.h",
-			"quizwindow.h",
+			"*"
 		]
 	}
 	Group {
 		name: "src"
 		prefix: "src/"
 		files: [
-			"main.cpp",
-			"mainwindow.cpp",
-			"question.cpp",
-			"questioncontainer.cpp",
-			"questionframes.cpp",
-			"questionset.cpp",
-			"quizwindow.cpp",
+			"*"
 		]
 	}
 }
