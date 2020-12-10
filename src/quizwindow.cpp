@@ -17,6 +17,9 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
 		layout->addWidget(frame);
 	}
 
+	MultiChoiceFrame* mc_frame = new MultiChoiceFrame(MultiChoiceQuestion("Whos gay", "Maddie", QStringList({"Leech", "Jason"})), 11, inner);
+	layout->addWidget(mc_frame);
+
 	setMinimumSize(534, 150);
 	resize(534, 550);
 }
