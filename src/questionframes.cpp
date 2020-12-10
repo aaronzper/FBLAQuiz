@@ -73,3 +73,14 @@ MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* p
 	inner->setGeometry(5, questionHeight + 5, 495, height); 
 	setFixedHeight(childrenRect().height());
 }
+
+ShortAnswerFrame::ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
+
+	answerInput = new QLineEdit(inner);
+
+	answerInput->setFixedWidth(300);
+
+	inner->setGeometry(5, questionHeight + 5, 495, answerInput->height()); 
+	inner->setContentsMargins(0,0,0,10);
+	setFixedHeight(childrenRect().height());
+}

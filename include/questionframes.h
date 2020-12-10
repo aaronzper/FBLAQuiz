@@ -2,6 +2,7 @@
 #define QUESTIONFRAMES_H
 #include <QFrame>
 #include <QRadioButton>
+#include <QLineEdit>
 #include "question.h"
 
 class QuestionFrame : public QFrame {
@@ -31,6 +32,8 @@ class ShortAnswerFrame : public QuestionFrame {
 	Q_OBJECT
 	public:
 		explicit ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* parent = nullptr);
+	private:
+		QLineEdit* answerInput;
 };
 
 class MultiAnswerFrame : public QuestionFrame {
