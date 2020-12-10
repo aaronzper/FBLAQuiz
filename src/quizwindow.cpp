@@ -17,8 +17,11 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
 		layout->addWidget(frame);
 	}
 
-	MultiChoiceFrame* mc_frame = new MultiChoiceFrame(MultiChoiceQuestion("Whos gay", "Maddie", QStringList({"Leech", "Jason"})), 11, inner);
+	MultiChoiceFrame* mc_frame = new MultiChoiceFrame(MultiChoiceQuestion("Example multi-choice", "Correct Answer", QStringList({"Wrong 1", "Wrong 2"})), 11, inner);
 	layout->addWidget(mc_frame);
+
+	ShortAnswerFrame* sa_frame = new ShortAnswerFrame(ShortAnswerQuestion("Example short answer", QStringList{"answer1","answer2"}), 12, inner);
+	layout->addWidget(sa_frame);
 
 	setMinimumSize(534, 150);
 	resize(534, 550);
