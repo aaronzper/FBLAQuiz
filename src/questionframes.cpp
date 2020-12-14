@@ -6,7 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
-#include <iostream>
+#include <QCheckBox>
 
 QuestionFrame::QuestionFrame(QString questionStr, int number, QWidget* parent) : QFrame(parent) {
 	setFrameStyle(QFrame::StyledPanel | QFrame::Plain);
@@ -46,17 +46,12 @@ TrueFalseFrame::TrueFalseFrame(TrueFalseQuestion q, int number, QWidget* parent)
 }
 
 MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
-	std::vector<QString> choices;
-	choices.push_back(q.getAnswer());
-
-	for(QString s : q.getChoices()) {
-		choices.push_back(s);
-	}
+	QStringList choices = q.getChoices();
+	choices << q.getAnswer();
 
 	QVBoxLayout* layout = new QVBoxLayout(inner);
 
-	// Randomize the order of the answers
-	std::shuffle(std::begin(choices), std::end(choices), std::default_random_engine());
+	// TODO: Randomize the order of the choices
 
 	unsigned int height = 0;
 	for(QString s : choices) {
@@ -65,6 +60,7 @@ MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* p
 		layout->addWidget(button);
 		height += button->height();
 
+		// Don't need to worry about duplicates here since the question file parser checks for duplicate correct answers
 		if(s == q.getAnswer()) {
 			correctAnswer = button;		
 		}	
@@ -75,12 +71,31 @@ MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* p
 }
 
 ShortAnswerFrame::ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
-
 	answerInput = new QLineEdit(inner);
 
 	answerInput->setFixedWidth(300);
 
 	inner->setGeometry(5, questionHeight + 5, 495, answerInput->height()); 
-	inner->setContentsMargins(0,0,0,10);
+	setFixedHeight(childrenRect().height());
+}
+
+MultiAnswerFrame::MultiAnswerFrame(MultiAnswerQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
+	QStringList allChoices = q.getChoices();
+	QStringList answers = q.getAnswers();
+	allChoices << answers;
+
+	QVBoxLayout* layout = new QVBoxLayout(inner);
+
+	// TODO: Randomize the order of the choices
+
+	unsigned int height = 0;
+	for(QString s : allChoices) {
+			QCheckBox* checkbox = new QCheckBox(inner);
+			checkbox->setText(s);
+			layout->addWidget(checkbox);
+			height += checkbox->height();
+	}
+
+	inner->setGeometry(5, questionHeight + 5, 495, height); 
 	setFixedHeight(childrenRect().height());
 }
