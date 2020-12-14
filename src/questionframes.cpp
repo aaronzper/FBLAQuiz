@@ -94,6 +94,13 @@ MultiAnswerFrame::MultiAnswerFrame(MultiAnswerQuestion q, int number, QWidget* p
 			checkbox->setText(s);
 			layout->addWidget(checkbox);
 			height += checkbox->height();
+
+			if(answers.contains(s)) {
+				correctAnswers.push_back(checkbox);
+			}
+			else {
+				wrongAnswers.push_back(checkbox);
+			}
 	}
 
 	inner->setGeometry(5, questionHeight + 5, 495, height); 

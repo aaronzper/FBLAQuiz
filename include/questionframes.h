@@ -3,6 +3,7 @@
 #include <QFrame>
 #include <QRadioButton>
 #include <QLineEdit>
+#include <QCheckBox>
 #include "question.h"
 
 class QuestionFrame : public QFrame {
@@ -40,6 +41,9 @@ class MultiAnswerFrame : public QuestionFrame {
 	Q_OBJECT
 	public:
 		explicit MultiAnswerFrame(MultiAnswerQuestion q, int number, QWidget* parent = nullptr);
+	private:
+		std::vector<QCheckBox*> correctAnswers;
+		std::vector<QCheckBox*> wrongAnswers;
 };
 
 #endif // QUESTIONFRAMES_H
