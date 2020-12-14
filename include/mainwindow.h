@@ -10,8 +10,8 @@ class MainWindow : public QWidget
 
 	private slots:
 		void buttonStartQuizClicked();
-		void buttonCreateQuizClicked();
-		void buttonEditQuizClicked();
+		void buttonAboutClicked();
+		void buttonHelpClicked();
 };
 
 #endif // MAINWINDOW_H

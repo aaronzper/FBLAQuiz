@@ -8,7 +8,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
-	setFixedSize(400, 165);
+	setFixedSize(400, 155);
 
 	QLabel* title = new QLabel("FBLA Quiz Program", this);
 	title->setGeometry(0, 0, width(), 60);
@@ -21,13 +21,13 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 	buttonStartQuiz->setGeometry(20, 60, 360, 40);
 	connect(buttonStartQuiz, SIGNAL(clicked()), this, SLOT(buttonStartQuizClicked()));
 
-	QPushButton* buttonCreateQuiz = new QPushButton("Create Quiz",this);
-	buttonCreateQuiz->setGeometry(20, 105, 177, 40);
-	connect(buttonCreateQuiz, SIGNAL(clicked()), this, SLOT(buttonCreateQuizClicked()));
+	QPushButton* buttonAbout = new QPushButton("About",this);
+	buttonAbout->setGeometry(20, 105, 177, 30);
+	connect(buttonAbout, SIGNAL(clicked()), this, SLOT(buttonAboutClicked()));
 
-	QPushButton* buttonEditQuiz = new QPushButton("Edit Quiz",this);
-	buttonEditQuiz->setGeometry(203, 105, 177, 40);
-	connect(buttonEditQuiz, SIGNAL(clicked()), this, SLOT(buttonEditQuizClicked()));
+	QPushButton* buttonHelp = new QPushButton("Help",this);
+	buttonHelp->setGeometry(203, 105, 177, 30);
+	connect(buttonHelp, SIGNAL(clicked()), this, SLOT(buttonHelpClicked()));
 }
 
 void MainWindow::buttonStartQuizClicked() {
@@ -44,11 +44,11 @@ void MainWindow::buttonStartQuizClicked() {
 	}
 }
 
-void MainWindow::buttonCreateQuizClicked() {
+void MainWindow::buttonAboutClicked() {
 	throw std::runtime_error("Foo");
 }
 
-void MainWindow::buttonEditQuizClicked() {
+void MainWindow::buttonHelpClicked() {
 	return;
 }
 
