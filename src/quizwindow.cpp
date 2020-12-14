@@ -1,3 +1,4 @@
+#include <iostream>
 #include "quizwindow.h"
 #include "questionset.h"
 #include <QVBoxLayout>
@@ -12,16 +13,23 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
 	scrollArea->setWidgetResizable(true);
 
 	QVBoxLayout* layout = new QVBoxLayout(inner);
-	for(int i = 1; i <= 10; i++) {
-		TrueFalseFrame* frame = new TrueFalseFrame(TrueFalseQuestion("Is this an example question?", true), i, inner);
-		layout->addWidget(frame);
+	
+	for(int i = 0; i < qSet.count(); i++) {
+		switch(qSet[i].getType()) {
+			case true_false:
+				layout->addWidget(new TrueFalseFrame((TrueFalseQuestion)qSet[i], i + 1, inner));
+				break;
+			case multi_choice:
+				layout->addWidget(new MultiChoiceFrame((MultiChoiceQuestion)qSet[i], i + 1, inner));
+				break;
+			case short_answer:
+				layout->addWidget(new ShortAnswerFrame((ShortAnswerQuestion)qSet[i], i + 1, inner));
+				break;
+			case  multi_answer:
+				layout->addWidget(new MultiAnswerFrame((MultiAnswerQuestion)qSet[i], i + 1, inner));
+				break;
+		}
 	}
-
-	MultiChoiceFrame* mc_frame = new MultiChoiceFrame(MultiChoiceQuestion("Example multi-choice", "Correct Answer", QStringList({"Wrong 1", "Wrong 2"})), 11, inner);
-	layout->addWidget(mc_frame);
-
-	ShortAnswerFrame* sa_frame = new ShortAnswerFrame(ShortAnswerQuestion("Example short answer", QStringList{"answer1","answer2"}), 12, inner);
-	layout->addWidget(sa_frame);
 
 	setMinimumSize(534, 150);
 	resize(534, 550);
