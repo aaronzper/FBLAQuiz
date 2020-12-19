@@ -1,21 +1,28 @@
 #include "questionframes.h"
 
-const QString checkmark = " ✅";
-const QString cross = " ❌";
+#define UPDATE_QUESTION_LABEL() 					\
+	QString questionText = questionLabel->text(); 	\
+	if(isCorrect) { 								\
+		questionText += " ✅";						\
+	}												\
+	else {											\
+		questionText += " ❌";						\
+	}												\
+	questionLabel->setText(questionText);			\
 
 bool TrueFalseFrame::showResult() {
-	QString questionText = questionLabel->text();
+	bool isCorrect = false;
+
 	QString trueText = buttonTrue->text();
 	QString falseText = buttonFalse->text();
 	bool clickedTrue = buttonTrue->isChecked();
 	bool clickedFalse = buttonFalse->isChecked();		
-	bool correct = false;
 
 	if(answer == true) {
 		trueText += " (Correct Answer";
 		if(clickedTrue) {
 			trueText += ", Your Answer";
-			correct = true;
+			isCorrect = true;
 		}
 		else if(clickedFalse) {
 			falseText += " (Your Answer)";
@@ -26,7 +33,7 @@ bool TrueFalseFrame::showResult() {
 		falseText += " (Correct Answer";
 		if(clickedFalse) {
 			falseText += ", Your Answer";
-			correct = true;
+			isCorrect = true;
 		}
 		else if(clickedTrue) {
 			trueText += " (Your Answer)";
@@ -34,22 +41,42 @@ bool TrueFalseFrame::showResult() {
 		falseText += ")";
 	}
 
-	if(correct) {
-		questionText += checkmark;
-	}
-	else {
-		questionText += cross;
-	}
+	UPDATE_QUESTION_LABEL();	
 
-	questionLabel->setText(questionText);
 	buttonTrue->setText(trueText);
 	buttonFalse->setText(falseText);
 	
-	return correct;
+	return isCorrect;
 }
 
 bool MultiChoiceFrame::showResult() {
-	return false;
+	bool isCorrect = false;
+
+	QString correctAnswerText = correctAnswer->text();
+	correctAnswerText += " (Correct Answer";
+
+	if(correctAnswer->isChecked()) {
+		isCorrect = true;
+		correctAnswerText += ", Your Answer";
+	}
+	else {
+		for(QRadioButton* button : wrongAnswers) {
+			if(button->isChecked()) {
+				QString buttonText = button->text();
+				buttonText += " (Your Answer)";
+				button->setText(buttonText);
+
+				break;
+			}
+		}
+	}
+
+	correctAnswerText += ")";
+	correctAnswer->setText(correctAnswerText);
+
+	UPDATE_QUESTION_LABEL();
+
+	return isCorrect;
 }
 
 bool ShortAnswerFrame::showResult() {
