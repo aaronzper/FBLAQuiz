@@ -80,7 +80,29 @@ bool MultiChoiceFrame::showResult() {
 }
 
 bool ShortAnswerFrame::showResult() {
-	return false;
+	QString answer = answerInput->text();
+	QStringList _answers = answers;
+
+	if(!caseSensitive) {
+		answer = answer.toLower();
+
+		for(int i = 0; i < _answers.length(); i++) {
+			_answers[i] = _answers[i].toLower();
+		}
+	}
+
+	bool isCorrect = _answers.contains(answer);
+
+	UPDATE_QUESTION_LABEL();
+
+	if(!isCorrect) {
+		int innerHeight = inner->height();
+		innerHeight += correctAnswerLabelHeight;
+		inner->setFixedHeight(innerHeight);
+	}
+	setFixedHeight(childrenRect().height());
+
+	return isCorrect;
 }
 
 bool MultiAnswerFrame::showResult() {

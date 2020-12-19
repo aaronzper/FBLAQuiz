@@ -32,9 +32,9 @@ TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
 		malformedFile("Incorrect length of question entry");
 
 	question = params[0];
-	if(params[1].toLower() == "1")
+	if(params[1] == "1")
 		answer = true;
-	else if (params[1].toLower() == "0")
+	else if (params[1] == "0")
 		answer = false;
 	else
 		malformedFile("Invalid answer for true/false question");
@@ -88,13 +88,26 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 		malformedFile("Incorrect length of question entry");
 
 	question = params[0];
+	
+	if(params[1] == "1") {
+		caseSensitive = true;
+	}
+	else {
+		caseSensitive = false;	
+	}
 
-	params.removeFirst(); // Remove question and leave everything else (the answers)
-	answers = params;
+	params.removeFirst(); // Remove first two params (question and case sensitivity)
+	params.removeFirst(); 
+
+	answers = params; // All remaining params all the answers)
 }
 
 const QStringList ShortAnswerQuestion::getAnswers() {
 	return answers;
+}
+
+bool ShortAnswerQuestion::isCaseSenstitive() {
+	return caseSensitive;
 }
 
 MultiAnswerQuestion::MultiAnswerQuestion(const QString q, const QStringList& a, const QStringList& c) {

@@ -84,11 +84,35 @@ MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* p
 }
 
 ShortAnswerFrame::ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
+	QString caseSensitiveText = " (Case ";
+	if(!caseSensitive) caseSensitiveText += "in";
+	caseSensitiveText += "sensitive)";
+	QLabel* caseSensitiveLabel = new QLabel(caseSensitiveText, inner);
+	caseSensitiveLabel->setFont(QFont("Arial", 10));
+
 	answerInput = new QLineEdit(inner);
-
 	answerInput->setFixedWidth(300);
+	answerInput->move(answerInput->x(), caseSensitiveLabel->height());
 
-	inner->setGeometry(5, questionHeight + 5, 495, answerInput->height()); 
+	caseSensitive = q.isCaseSenstitive();
+	answers = q.getAnswers();			
+
+	QLabel* correctAnswerLabel = new QLabel(inner);
+	QString labelText = "Correct Answers: ";
+	for(int i = 0; i < answers.length(); i++) {
+		labelText += answers[i];
+
+		if(i != answers.length() - 1) { // If i isn't the last item
+			labelText += ", ";
+		}
+	}
+	correctAnswerLabel->setText(labelText);
+	correctAnswerLabel->setFont(QFont("Arial", 11, 1, true));
+	correctAnswerLabel->move(answerInput->x(), answerInput->height() + caseSensitiveLabel->height()); // The correctAnswerLabel isn't explicitly hidden until the user submits the quiz, but the user cant see it since its below the botton of the "inner" widget (which is resized to show it when the user submits)
+
+	correctAnswerLabelHeight = correctAnswerLabel->height();
+
+	inner->setGeometry(5, questionHeight + 5, 495, answerInput->height() + caseSensitiveLabel->height());
 	setFixedHeight(childrenRect().height());
 }
 

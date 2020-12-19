@@ -50,7 +50,9 @@ class ShortAnswerFrame : public QuestionFrame {
 		QString generateReport();
 	private:
 		QLineEdit* answerInput;
-		QString answer;
+		int correctAnswerLabelHeight;
+		QStringList answers;
+		bool caseSensitive;
 };
 
 class MultiAnswerFrame : public QuestionFrame {
