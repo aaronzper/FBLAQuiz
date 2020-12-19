@@ -8,6 +8,15 @@
 #include <random>
 #include <QCheckBox>
 
+template<class T>
+T shuffleList(T list) {
+	std::random_device rd;
+	std::mt19937 mt(rd());
+
+	std::shuffle(list.begin(), list.end(), mt);
+	return list;
+}
+
 QuestionFrame::QuestionFrame(QString questionStr, int number, QWidget* parent) : QFrame(parent) {
 	setFrameStyle(QFrame::StyledPanel | QFrame::Plain);
 	setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
@@ -16,23 +25,24 @@ QuestionFrame::QuestionFrame(QString questionStr, int number, QWidget* parent) :
 	QFont font;
 	font.setPointSize(12);
 
-	QLabel* question = new QLabel(this);
-	question->setFont(font);
-	question->setText(QString("%1. %2").arg(QString::number(number), questionStr)); // Set the label to said formatted string
-	question->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-	question->setWordWrap(true);
-	question->move(5,5);
-	question->setMinimumWidth(495);
-	question->adjustSize();
+	questionLabel = new QLabel(this);
+	questionLabel->setFont(font);
+	questionLabel->setText(QString("%1. %2").arg(QString::number(number), questionStr)); // Set the label to said formatted string
+	questionLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+	questionLabel->setWordWrap(true);
+	questionLabel->move(5,5);
+	questionLabel->setMinimumWidth(495);
+	questionLabel->adjustSize();
 
-	questionHeight = question->height();
+	questionHeight = questionLabel->height();
 
 	inner = new QWidget(this);
 }
 
 TrueFalseFrame::TrueFalseFrame(TrueFalseQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
-	QRadioButton* buttonTrue = new QRadioButton(inner);
-	QRadioButton* buttonFalse = new QRadioButton(inner);
+	buttonTrue = new QRadioButton(inner);
+	buttonFalse = new QRadioButton(inner);
+	answer = q.getAnswer();
 
 	buttonTrue->setText("True");
 	buttonFalse->setText("False");
@@ -51,7 +61,7 @@ MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* p
 
 	QVBoxLayout* layout = new QVBoxLayout(inner);
 
-	// TODO: Randomize the order of the choices
+	choices = shuffleList<QStringList>(choices);
 
 	unsigned int height = 0;
 	for(QString s : choices) {
@@ -64,6 +74,9 @@ MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* p
 		if(s == q.getAnswer()) {
 			correctAnswer = button;		
 		}	
+		else {
+			wrongAnswers.push_back(button);
+		}
 	}
 
 	inner->setGeometry(5, questionHeight + 5, 495, height); 
@@ -86,7 +99,7 @@ MultiAnswerFrame::MultiAnswerFrame(MultiAnswerQuestion q, int number, QWidget* p
 
 	QVBoxLayout* layout = new QVBoxLayout(inner);
 
-	// TODO: Randomize the order of the choices
+	allChoices = shuffleList<QStringList>(allChoices);
 
 	unsigned int height = 0;
 	for(QString s : allChoices) {

@@ -2,6 +2,9 @@
 #define QUIZWINDOW_H
 #include <QWidget>
 #include <QScrollArea>
+#include <QPushButton>
+#include <vector>
+#include "questionframes.h"
 #include "questionset.h"
 
 class QuizWindow : public QWidget
@@ -12,8 +15,14 @@ class QuizWindow : public QWidget
 
 	private:
 		void resizeEvent(QResizeEvent* event);
-		QScrollArea* scrollArea;
 
+		QScrollArea* scrollArea;
+		std::vector<QuestionFrame*> qFrames;
+		QPushButton* button; // Button object that starts out as "Submit" but then is changed to "Print"
+		bool submitted = false;
+
+	private slots:
+		void buttonClicked();
 };
 
 #endif // QUIZWINDOW_H
