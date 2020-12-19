@@ -16,6 +16,8 @@ QuestionSet::QuestionSet(QString path)
 	QTextStream txt(&file);
 
 	for(QString line = txt.readLine(); !line.isNull(); line = txt.readLine()) {
+		if(line.isEmpty()) continue;
+
 		QuestionType type = (QuestionType)line[0].digitValue();
 		line.remove(0,1); // remove first char (the question type) since the question constructors dont need that info
 
