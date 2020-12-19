@@ -89,12 +89,12 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 
 	question = params[0];
 	
-	if(params[1] == "1") {
+	if(params[1] == "1")
 		caseSensitive = true;
-	}
-	else {
+	else if (params[1] == "0")
 		caseSensitive = false;	
-	}
+	else 
+		malformedFile("Invalid case-sensitivity value");
 
 	params.removeFirst(); // Remove first two params (question and case sensitivity)
 	params.removeFirst(); 

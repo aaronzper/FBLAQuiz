@@ -84,6 +84,8 @@ MultiChoiceFrame::MultiChoiceFrame(MultiChoiceQuestion q, int number, QWidget* p
 }
 
 ShortAnswerFrame::ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
+	caseSensitive = q.isCaseSenstitive();
+
 	QString caseSensitiveText = " (Case ";
 	if(!caseSensitive) caseSensitiveText += "in";
 	caseSensitiveText += "sensitive)";
@@ -94,11 +96,10 @@ ShortAnswerFrame::ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* p
 	answerInput->setFixedWidth(300);
 	answerInput->move(answerInput->x(), caseSensitiveLabel->height());
 
-	caseSensitive = q.isCaseSenstitive();
 	answers = q.getAnswers();			
 
 	QLabel* correctAnswerLabel = new QLabel(inner);
-	QString labelText = "Correct Answers: ";
+	QString labelText = "Correct Answer(s): ";
 	for(int i = 0; i < answers.length(); i++) {
 		labelText += answers[i];
 
