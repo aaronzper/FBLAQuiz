@@ -1,5 +1,8 @@
 #include "questionframes.h"
 
+const QString checkmark = " ✅";
+const QString cross = " ❌";
+
 bool TrueFalseFrame::showResult() {
 	QString questionText = questionLabel->text();
 	QString trueText = buttonTrue->text();
@@ -32,10 +35,10 @@ bool TrueFalseFrame::showResult() {
 	}
 
 	if(correct) {
-		questionText += " ✅";
+		questionText += checkmark;
 	}
 	else {
-		questionText += " ❌";
+		questionText += cross;
 	}
 
 	questionLabel->setText(questionText);
