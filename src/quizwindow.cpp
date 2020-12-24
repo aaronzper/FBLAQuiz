@@ -51,10 +51,17 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
 		}
 	}
 
+	scoreLabel = new QLabel(inner);
+	QFont scoreFont;
+	scoreFont.setBold(true);
+	scoreFont.setPointSize(12);
+	scoreLabel->setFont(scoreFont);
+	layout->addWidget(scoreLabel);
+
 	button = new QPushButton("Submit", inner);
 	button->setFixedWidth(80);
-	layout->addWidget(button);
 	connect(button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+	layout->addWidget(button);
 
 	setMinimumSize(534, 150);
 	resize(534, 550);
@@ -67,16 +74,24 @@ void QuizWindow::resizeEvent(QResizeEvent* event) {
 
 void QuizWindow::buttonClicked() {
 	try {
+		// "Submit"
 		if(!submitted) {
 			submitted = true;
 			button->setText("Print");
 
+			unsigned int correct = 0;
 			for(QuestionFrame* frame : qFrames) {
-				frame->showResult();
+				if(frame->showResult()) {
+					correct++;
+				}
 			}
+
+			unsigned int numQs = qFrames.size();
+			scoreLabel->setText(QString("Final Score: %1/%2").arg(QString::number(correct), QString::number(numQs))); 
 		}
+		// "Print"
 		else {
-			// Print report
+			// TODO: Print report
 		}
 	}
 	catch(std::runtime_error e) {

@@ -19,6 +19,7 @@ class QuizWindow : public QWidget
 		QScrollArea* scrollArea;
 		std::vector<QuestionFrame*> qFrames;
 		QPushButton* button; // Button object that starts out as "Submit" but then is changed to "Print"
+		QLabel* scoreLabel;
 		bool submitted = false;
 
 	private slots:
