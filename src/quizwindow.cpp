@@ -4,6 +4,10 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include "questionframes.h"
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPainter>
+#include <QTextDocument>
 
 union frame_ptr {
 	TrueFalseFrame* tf;
@@ -73,6 +77,8 @@ void QuizWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void QuizWindow::buttonClicked() {
+	static QString finalScore = "";
+
 	try {
 		// "Submit"
 		if(!submitted) {
@@ -87,11 +93,30 @@ void QuizWindow::buttonClicked() {
 			}
 
 			unsigned int numQs = qFrames.size();
-			scoreLabel->setText(QString("Final Score: %1/%2").arg(QString::number(correct), QString::number(numQs))); 
+			finalScore = QString("Final Score: %1/%2").arg(QString::number(correct), QString::number(numQs));
+			scoreLabel->setText(finalScore); 
 		}
 		// "Print"
 		else {
-			// TODO: Print report
+			QString htmlOutput = "<h1>FBLA Quiz Results</h1>\n";
+			htmlOutput += "<p>" + finalScore + "</p>\n";
+
+			for(QuestionFrame* frame : qFrames) {
+				htmlOutput += frame->generateReport();
+			}
+
+			QTextDocument printOutput;
+			printOutput.setHtml(htmlOutput);
+
+			QPrinter printer;
+			QPrintDialog* dialog = new QPrintDialog(&printer);
+			dialog->setWindowTitle("Print Results of Quiz");
+			if(dialog->exec() != QDialog::Accepted) return;
+
+			QPainter painter;
+			painter.begin(&printer);
+			printOutput.drawContents(&painter);
+			painter.end();
 		}
 	}
 	catch(std::runtime_error e) {

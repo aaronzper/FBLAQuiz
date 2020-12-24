@@ -1,6 +1,6 @@
 FBLAQuiz.qbs.user
 .qmake.stash
-build.sh
 default/
+print.pdf
 
 .ycm_extra_conf.py
