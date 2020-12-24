@@ -107,5 +107,36 @@ bool ShortAnswerFrame::showResult() {
 }
 
 bool MultiAnswerFrame::showResult() {
-	return false;
+	bool allCorrectAreChecked = true;
+	for(QCheckBox* check : correctAnswers) {
+		QString checkText = check->text();
+		checkText += " (Correct Answer";
+
+		if(!check->isChecked()) {
+			allCorrectAreChecked = false;
+		}
+		else {
+			checkText += ", Your Answer";
+		}
+
+		checkText += ")";
+		check->setText(checkText);
+	}
+
+	bool allIncorrectArentChecked = true;
+	for(QCheckBox* check : wrongAnswers) {
+		if(check->isChecked()) {
+			allIncorrectArentChecked = false;
+
+			QString checkText = check->text();
+			checkText += " (Your Answer)";
+			check->setText(checkText);
+		}
+	}
+
+	bool isCorrect = allCorrectAreChecked && allIncorrectArentChecked;
+
+	UPDATE_QUESTION_LABEL();
+
+	return isCorrect;	
 }
