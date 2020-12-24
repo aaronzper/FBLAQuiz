@@ -1,7 +1,8 @@
 #include "questionframes.h"
 
-#define UPDATE_QUESTION_LABEL() 					\
-	QString questionText = questionLabel->text(); 	\
+// The backslashed here are aligned in Vim but not anywhere else. Don't ask me why since I couldn't be bothered to fix it.
+#define UPDATE_QUESTION_LABEL()						\
+	QString questionText = questionLabel->text();	\
 	if(isCorrect) { 								\
 		questionText += " ✅";						\
 	}												\
