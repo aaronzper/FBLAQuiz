@@ -6,6 +6,13 @@
 QString TrueFalseFrame::generateReport() {
 	INIT_HTML_OUTPUT();
 
+	htmlOutput += "<div style=\"margin-left: 40px\">"; // Indent
+
+	htmlOutput += "<p>" + buttonTrue->text() + "</p>";
+	htmlOutput += "<p>" + buttonFalse->text() + "</p>";
+
+	htmlOutput += "</div>"; // End of indent
+
 	return htmlOutput;
 }
 
