@@ -1,6 +1,6 @@
 #include "questionframes.h"
 
-// The backslashed here are aligned in Vim but not anywhere else. Don't ask me why since I couldn't be bothered to fix it.
+// These backslashes may not be aligned if your tab-width isn't 4
 #define UPDATE_QUESTION_LABEL()						\
 	QString questionText = questionLabel->text();	\
 	if(isCorrect) { 								\
@@ -12,7 +12,7 @@
 	questionLabel->setText(questionText);			\
 
 bool TrueFalseFrame::showResult() {
-	bool isCorrect = false;
+	isCorrect = false;
 
 	QString trueText = buttonTrue->text();
 	QString falseText = buttonFalse->text();
@@ -51,7 +51,7 @@ bool TrueFalseFrame::showResult() {
 }
 
 bool MultiChoiceFrame::showResult() {
-	bool isCorrect = false;
+	isCorrect = false;
 
 	QString correctAnswerText = correctAnswer->text();
 	correctAnswerText += " (Correct Answer";
@@ -92,7 +92,7 @@ bool ShortAnswerFrame::showResult() {
 		}
 	}
 
-	bool isCorrect = _answers.contains(answer);
+	isCorrect = _answers.contains(answer);
 
 	UPDATE_QUESTION_LABEL();
 
@@ -134,7 +134,7 @@ bool MultiAnswerFrame::showResult() {
 		}
 	}
 
-	bool isCorrect = allCorrectAreChecked && allIncorrectArentChecked;
+	isCorrect = allCorrectAreChecked && allIncorrectArentChecked;
 
 	UPDATE_QUESTION_LABEL();
 

@@ -17,6 +17,7 @@ class QuestionFrame : public QFrame {
 		QLabel* questionLabel;
 		unsigned int questionHeight;
 		QWidget* inner;
+		bool isCorrect;
 };
 
 class TrueFalseFrame : public QuestionFrame {
