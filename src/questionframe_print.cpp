@@ -33,7 +33,9 @@ QString MultiChoiceFrame::generateReport() {
 QString ShortAnswerFrame::generateReport() {
 	INIT_HTML_OUTPUT();
 
-	htmlOutput += "<p>Your Answer: " + answerInput->text() + "</p>";
+	QString userAnswer = answerInput->text();
+	if(userAnswer == "") userAnswer = "N/A";
+	htmlOutput += "<p>Your Answer: " + userAnswer + "</p>";
 
 	bool showAnswers;
 	bool multipleAnswers = answers.length() > 1;
