@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <QMessageBox>
+#include "quizgeneration.h"
 
 void MessageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
 	QMessageBox* box = new QMessageBox();
@@ -33,18 +34,25 @@ void MessageHandler(QtMsgType type, const QMessageLogContext& context, const QSt
 
 int main(int argc, char *argv[])
 {
-	qInstallMessageHandler(MessageHandler);
-
-	try {
-		QApplication a(argc, argv);
-
-		MainWindow win;
-		win.show();
-
-		return a.exec();
+	QString arg_str = argv[1]; // Convert to QString so we can compare it below (also because I couldn't get strcmp() to work)
+	if(arg_str == "generate") {
+		generateQuiz();
 	}
-	catch (std::runtime_error e) {
-		std::cerr << "Fatal Error: " << e.what() << std::endl;
-		abort();
+	else {
+		qInstallMessageHandler(MessageHandler);
+
+		try {
+			QApplication a(argc, argv);
+
+			MainWindow win;
+			win.show();
+
+			return a.exec();
+		}
+		catch (std::runtime_error e) {
+			std::cerr << "Fatal Error: " << e.what() << std::endl;
+			abort();
+		}
 	}
+
 }
