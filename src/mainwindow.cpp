@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QErrorMessage>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
@@ -45,10 +46,16 @@ void MainWindow::buttonStartQuizClicked() {
 }
 
 void MainWindow::buttonAboutClicked() {
-	throw std::runtime_error("Foo");
+	QMessageBox msgBox;
+	msgBox.setText("FBLA Coding and Programming submission by Aaron Perrotta.\n\nThis project makes use of the Qt5 framework, which is licensed under the LGPLv3. For further information, see the LICENSE file in the root directory of the source code.");
+
+	msgBox.exec();
 }
 
 void MainWindow::buttonHelpClicked() {
-	return;
+	QMessageBox msgBox;
+	msgBox.setText("To begin, click the \"Start Quiz\" button. Then select the fblaquiz file you'd like to use. The program will then display 5 questions randomly chosen from that quiz set.\n\nFor true-false and multi-choice questions (indicated by the radio buttons), only one answer is correct. For multi-answer questions (indicated by the check boxes), multiple answers may be correct. For short-answer questions (indicated by the text input box), one or more answers may be correct. The program will also indicate if the question is case-sensitive.\n\nAfter you finish the quiz, click the \"Submit\" button and the program will show you which questions you got correct, the correct answer for questions you got wrong, and yor final score. Clicking the \"Print\" button after that will open up your system print dialog to print a report on how you did.");
+
+	msgBox.exec();
 }
 
