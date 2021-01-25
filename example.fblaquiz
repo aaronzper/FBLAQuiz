@@ -1,7 +1,50 @@
-0Trump is potus;1
-1Who is PrezElect;Biden;Mamala;Pence;
-2Who is VP?;0;Pence;Mike Pence
-3Who is a Senator?;3;Bernie;Kamala;Warren;AOC;Omar
-0This is false;0
-1What is the best UCVTS school?;AIT;Allied;UCTech;Magnet;APA
-2What school do I got to?;1;AIT;
+1How many bits make up a byte?;8;16;2;4;32;64;
+1A kilobyte is how many bytes?;1,000;100;1,000,000;1,000,000,000;
+1A megabyte is how many bytes?;1,000,000;100;1,000;1,000,000,000;
+1A gigabyte is how many bytes?;1,000,000,000;100;1,000;1,000,000;
+3Which of the following are common operating systems?;4;Windows;MacOS;Linux;BSD;CudiOS;Tinux;
+0FDDI stands for "Fiber Distributed Data Interface";1;
+2What does WPA stand for?;0;Wi-Fi Protected Access;WiFi Protected Access;
+1What is an SSID?;Service Set Identifier, the name of a WiFi network;Secure System Identifier, used to identify operating systems;
+1What's the most common form of authentication?;Username and password;Fingerprint;Two-factor authentication;One-time access code;
+3Select two examples of firmware on a PC;2;BIOS;UEFI;ELF;SystemD;Vim;
+2What does the "S" in SRAM stand for?;0;Static;
+2What does the "D" in DRAM stand for?;0;Dynamic;
+2What does RAM stand for?;0;Random Access Memory;
+1What does ESD stand for?;Electrostatic discharge;Exectutable security daemon;Expandable software driver;
+1Which version of Windows integrated consumer and business features into one OS with different versions?;Windows XP;Windows NT;Windows 7;Windows 8;Windows 10;
+0FAT32 is the newest Windows file system, and can be only read by that OS;0;
+1What number is permanently assigned to a network card and is used as a unique identifier?;MAC Address;IP Address;TCP Port;UDP Port;PID Address;
+0Network topology refers to the structure of a computer network;1;
+3Which of the following are types of computer network?;4;Ring network;Mesh network;Star network;Bus network;
+2What does CMOS stand for?;0;Complementary metal-oxide semiconductor;Complementary metal oxide semiconductor;
+1What is SCSI?;Small Computer System Interface, the main standard for serial ports;Secure Common System Interface, an inter-OS communication standard;
+1What does r-- mean on a Unix system?;Read-only permissions;Read and write permissions;Read and execute permissions;Read, write, and execute permissions;
+1What does r-x mean on a Unix system?;Read and execute permissions;Read-only permissions;Read and write permissions;Read, write, and execute permissions;
+1What does rw- mean on a Unix system?;Read and write permissions;Read-only permissions;Read and execute permissions;Read, write, and execute permissions;
+1What does rwx mean on a Unix system?;Read, write, and execute permissions;Read and write permissions;Read and execute permissions;Read-only permissions;
+1Where in the Windows registry hive is control set data stored?;HKEY_LOCAL_MACHINE/SYSTEM;HKEY_WIN_MACHINE/SYSTEM;HKEY_SYSTEM/CORE;HKEY_WINDOWS/SYSTEM;
+2What does POST stand for?;0;Power on self test;
+0POST is a hardware check done by the motherboard during startup;1;
+1What does the POST error 1xx mean?;Problem with motherboard;Problem with memory;Problem with keyboard;Problem with video adapter;Problem with floppy drive;Problem with printer;
+1What does the POST error 2xx mean?;Problem with memory;Problem with motherboard;Problem with keyboard;Problem with video adapter;Problem with floppy drive;Problem with printer;
+1What does the POST error 3xx mean?;Problem with keyboard;Problem with motherboard;Problem with memory;Problem with video adapter;Problem with floppy drive;Problem with printer;
+1What does the POST error 4xx mean?;Problem with video adapter;Problem with motherboard;Problem with memory;Problem with keyboard;Problem with floppy drive;Problem with printer;
+1What does the POST error 6xx mean?;Problem with floppy drive;Problem with motherboard;Problem with memory;Problem with keyboard;Problem with video adapter;Problem with printer;
+1What does the POST error 9xx mean?;Problem with printer;Problem with motherboard;Problem with memory;Problem with keyboard;Problem with video adapter;Problem with floppy drive;
+1What is the max transfer rate of USB 1.1?;12 mbps;480 mbps;5 gbps;
+1What is the max transfer rate of USB 2.0?;480 mbps;12 mbps;5 gbps;
+1What is the max transfer rate of USB 3.0?;5 gbps;12 mbps;480 mbps;
+2What does VGA stand for?;0;Video Graphics Array;
+1What is the first question you should ask a user when their PC wont boot after downloading a file from the internet;Did you scan the file for viruses before opening it?;What OS is your PC running;Did you recently update your OS?;
+0Installing network monitoring software is a crime;0
+0Intrustion of a computer network is a crime;1;
+0Pirating software is a crime;1;
+3Which of the following is an object-oriented programming language?;3;C++;Java;C#;C;Assembly;SQL;
+3Which of the following operating systems are derived from Unix?;3;Linux;MacOS;FreeBSD;Windows;DOS;
+1What basic graphics programs is bundled with Windows?;Paint;GIMP;Photoshop;
+1Which standard defines wireless networking?;IEEE 802.11;RFC 2324;IPv4;IPv6;
+1Which of the following is the most common 64-bit PC CPU architecture?;x86-64;x86;ARM;RISC-V;IA-64;
+1What is the "brain" of the computer?;The CPU;The RAM;The motherboard;The GPU;The hard drive;
+0CPU caches store small amounts of memory that the CPU can reference faster than RAM;1;
+1What does HTTP response code 418 mean?;I'm a teapot (yes, really);Resource not found;Bad request;Forbidden;Internal server error;Bad gateway;
