@@ -16,8 +16,7 @@ union frame_ptr {
 	MultiAnswerFrame* ma;
 };
 
-QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
-{
+QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent) {
 	QWidget* inner = new QWidget(this);
 	scrollArea = new QScrollArea(this);
 	scrollArea->setWidget(inner);
@@ -55,6 +54,7 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent)
 		}
 	}
 
+	// Set up a label to show the final score but dont show it yet
 	scoreLabel = new QLabel(inner);
 	QFont scoreFont;
 	scoreFont.setBold(true);
@@ -77,17 +77,17 @@ void QuizWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void QuizWindow::buttonClicked() {
-	static QString finalScore = "";
+	QString finalScore = "";
 
 	try {
-		// "Submit"
-		if(!submitted) {
+		// The button renames itself to say "Print" once it's clicked for the first time, so we need to check which its on (Submit or Print) and act accordingly
+		if(!submitted) { // "Submit"
 			submitted = true;
 			button->setText("Print");
 
 			unsigned int correct = 0;
 			for(QuestionFrame* frame : qFrames) {
-				if(frame->showResult()) {
+				if(frame->showResult()) { // showResult() not only displays to the user how the user did, but also returns whether it was correct or not
 					correct++;
 				}
 			}
@@ -96,8 +96,8 @@ void QuizWindow::buttonClicked() {
 			finalScore = QString("Final Score: %1/%2").arg(QString::number(correct), QString::number(numQs));
 			scoreLabel->setText(finalScore); 
 		}
-		// "Print"
-		else {
+		else { // "Print"
+			// Creates a string that to contain HTML code that is later rendered to show the report
 			QString htmlOutput = "<h1>FBLA Quiz Results</h1>\n";
 			htmlOutput += "<p>" + finalScore + "</p>\n";
 
@@ -106,12 +106,12 @@ void QuizWindow::buttonClicked() {
 			}
 
 			QTextDocument printOutput;
-			printOutput.setHtml(htmlOutput);
+			printOutput.setHtml(htmlOutput); // Render the HTML
 
 			QPrinter printer;
 			QPrintDialog* dialog = new QPrintDialog(&printer);
 			dialog->setWindowTitle("Print Results of Quiz");
-			if(dialog->exec() != QDialog::Accepted) return;
+			if(dialog->exec() != QDialog::Accepted) return; // Just exit if the user closes out of the print dialog
 
 			QPainter painter;
 			painter.begin(&printer);

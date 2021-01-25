@@ -1,3 +1,7 @@
+// Contains class declarations for all the different types of question
+// Each question class inherits the base Question class (that just has basic question functionality, specifically containing the question text itself)
+// Each question class has two constructors: one with a stirng param to parse into that question (from the fblaquiz file)
+
 #ifndef QUESTION_H
 #define QUESTION_H
 #include <QStringList>

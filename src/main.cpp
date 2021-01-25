@@ -7,6 +7,7 @@
 void MessageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
 	QMessageBox* box = new QMessageBox();
 
+	// Display an appropriate message box
 	switch(type) {
 		case QtDebugMsg:
 			box->setIcon(QMessageBox::Icon::Information);
@@ -36,20 +37,20 @@ int main(int argc, char *argv[])
 {
 	QString arg_str = argv[1]; // Convert to QString so we can compare it below (also because I couldn't get strcmp() to work)
 	if(arg_str == "generate") {
-		generateQuiz();
+		generateQuiz(); // Go into the CLI fblaquiz generation tool
 	}
 	else {
-		qInstallMessageHandler(MessageHandler);
+		qInstallMessageHandler(MessageHandler); // Sets the message handler to be the function above. (So that function is called whenever Qt's error/warning/etc functions are called)
 
 		try {
 			QApplication a(argc, argv);
 
 			MainWindow win;
-			win.show();
+			win.show(); // Shows the main window
 
 			return a.exec();
 		}
-		catch (std::runtime_error e) {
+		catch (std::runtime_error e) { // If an uncaught std::runtime_error is thrown (which is how I indicate errors in this) print it and abort.
 			std::cerr << "Fatal Error: " << e.what() << std::endl;
 			abort();
 		}

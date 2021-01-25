@@ -22,7 +22,7 @@ QString TrueFalseFrame::generateReport() {
 QString MultiChoiceFrame::generateReport() {
 	INIT_HTML_OUTPUT();
 
-	QList<QRadioButton*> buttons = inner->findChildren<QRadioButton*>();
+	QList<QRadioButton*> buttons = inner->findChildren<QRadioButton*>(); // Get all the radio buttons
 	for(QRadioButton* button : buttons) {
 		htmlOutput += "<p>" + button->text() + "</p>";
 	}
@@ -91,7 +91,7 @@ QString ShortAnswerFrame::generateReport() {
 QString MultiAnswerFrame::generateReport() {
 	INIT_HTML_OUTPUT();
 
-	QList<QCheckBox*> buttons = inner->findChildren<QCheckBox*>();
+	QList<QCheckBox*> buttons = inner->findChildren<QCheckBox*>(); // Get all the check boxes
 	for(QCheckBox* button : buttons) {
 		htmlOutput += "<p>" + button->text() + "</p>";
 	}

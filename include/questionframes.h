@@ -1,3 +1,4 @@
+// Contains the declarations for the different QuestionFrame classes that make up each visible question in the quiz window. All the classes derive from the QuestionFrame calss that provides base functionality.
 #ifndef QUESTIONFRAMES_H
 #define QUESTIONFRAMES_H
 #include <QFrame>

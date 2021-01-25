@@ -1,6 +1,7 @@
 #include "questioncontainer.h"
 #include "question.h"
 
+// Macro to throw an error if the QuestionContainer is accessed without first actually putting something inside it
 #define ASSERT_INIT() if(!_init) throw std::runtime_error("Attempted to access unitialized QuestionContainer");
 
 QuestionContainer::QuestionContainer() {
@@ -49,6 +50,7 @@ QuestionType QuestionContainer::getType() {
 	return type;
 }
 
+// No need to check to make sure the type is correct for all these, since std::get/std::variant will throw an error itself if it's wrong.
 QuestionContainer::operator TrueFalseQuestion() const {
 	ASSERT_INIT();
 	return std::get<TrueFalseQuestion>(container);

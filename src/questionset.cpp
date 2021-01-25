@@ -23,7 +23,7 @@ QuestionSet::QuestionSet(QString path)
 
 		QuestionContainer qc;
 		switch(type) {
-			case true_false:     // True/false
+			case true_false:     // True-false
 				qc.init(TrueFalseQuestion(line));
 				break;
 			case multi_choice:     // Multi-choice
@@ -35,7 +35,7 @@ QuestionSet::QuestionSet(QString path)
 			case multi_answer:     // Multi-answer
 				qc.init(MultiAnswerQuestion(line));
 				break;
-			default:    // Invalid type (including -1, for when its not even an int)
+			default:    // Invalid type (for when its not even an int)
 				throw std::runtime_error("Malformed question file");
 				break;
 		}

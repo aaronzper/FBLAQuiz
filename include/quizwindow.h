@@ -1,3 +1,5 @@
+// Contains the class for the window that actually displays the quizthe window that actually displays the quiz.
+
 #ifndef QUIZWINDOW_H
 #define QUIZWINDOW_H
 #include <QWidget>

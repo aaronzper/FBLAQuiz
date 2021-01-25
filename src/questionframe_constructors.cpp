@@ -9,7 +9,7 @@
 #include <QCheckBox>
 
 template<class T>
-T shuffleList(T list) {
+T shuffleList(T list) { // Helper function to shuffle a list
 	std::random_device rd;
 	std::mt19937 mt(rd());
 
@@ -17,6 +17,7 @@ T shuffleList(T list) {
 	return list;
 }
 
+// Sets up the label that shows the question text, and the "inner" widget that has the question type specific stuff (radio buttons vs text input, etc)
 QuestionFrame::QuestionFrame(QString questionStr, int number, QWidget* parent) : QFrame(parent) {
 	setFrameStyle(QFrame::StyledPanel | QFrame::Plain);
 	setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
@@ -98,6 +99,7 @@ ShortAnswerFrame::ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* p
 
 	answers = q.getAnswers();			
 
+	// Set up the correct answer label now, and just hide it until the user submits
 	QLabel* correctAnswerLabel = new QLabel(inner);
 	QString labelText = "Correct Answer(s): ";
 	for(int i = 0; i < answers.length(); i++) {
@@ -120,7 +122,7 @@ ShortAnswerFrame::ShortAnswerFrame(ShortAnswerQuestion q, int number, QWidget* p
 MultiAnswerFrame::MultiAnswerFrame(MultiAnswerQuestion q, int number, QWidget* parent) : QuestionFrame(q.getQuestion(), number, parent) {
 	QStringList allChoices = q.getChoices();
 	QStringList answers = q.getAnswers();
-	allChoices << answers;
+	allChoices << answers; // Combine them since all the choices (correct and incorrect) are needed in one list when the check boxes are set up
 
 	QVBoxLayout* layout = new QVBoxLayout(inner);
 
@@ -128,17 +130,17 @@ MultiAnswerFrame::MultiAnswerFrame(MultiAnswerQuestion q, int number, QWidget* p
 
 	unsigned int height = 0;
 	for(QString s : allChoices) {
-			QCheckBox* checkbox = new QCheckBox(inner);
-			checkbox->setText(s);
-			layout->addWidget(checkbox);
-			height += checkbox->height();
+		QCheckBox* checkbox = new QCheckBox(inner);
+		checkbox->setText(s);
+		layout->addWidget(checkbox);
+		height += checkbox->height();
 
-			if(answers.contains(s)) {
-				correctAnswers.push_back(checkbox);
-			}
-			else {
-				wrongAnswers.push_back(checkbox);
-			}
+		if(answers.contains(s)) {
+			correctAnswers.push_back(checkbox);
+		}
+		else {
+			wrongAnswers.push_back(checkbox);
+		}
 	}
 
 	inner->setGeometry(5, questionHeight + 5, 495, height); 

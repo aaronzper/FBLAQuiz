@@ -3,6 +3,7 @@
 #include <QStringList>
 #include <stdexcept>
 
+// Helper function any errors in parsing the fblaquiz file
 void malformedFile(const std::string& msg = "") {
 	std::string errorMsg = "Malformed quiz file";
 	
@@ -13,6 +14,7 @@ void malformedFile(const std::string& msg = "") {
 	throw std::runtime_error(errorMsg);
 }
 
+// Helper function to split a line in the fblaquiz file into a list
 QStringList getParams(QString s) {
 	return s.split(';', Qt::SkipEmptyParts);
 }
@@ -26,6 +28,7 @@ TrueFalseQuestion::TrueFalseQuestion(const QString q, const bool a) {
 	answer = a;
 }
 
+// Parser for true-false question
 TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
@@ -51,6 +54,7 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString q, const QString a, const
 	choices = c;
 }
 
+// Parser for multi-choice question
 MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
@@ -82,6 +86,7 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a) 
 	answers = a;
 }
 
+// Parser for short-answer question
 ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
@@ -116,6 +121,7 @@ MultiAnswerQuestion::MultiAnswerQuestion(const QString q, const QStringList& a, 
 	choices = c;
 }
 
+// Parser for multi-answer question
 MultiAnswerQuestion::MultiAnswerQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 3))
@@ -130,7 +136,7 @@ MultiAnswerQuestion::MultiAnswerQuestion(const QString rawStr) {
 	params.removeFirst();
 
 	int recordedAnswers = 0;
-	for(QString entry : params) {
+	for(QString entry : params) { // Goes down the list of answers, and puts them all into the correct answers list until we've pushed the number of correct answers there are, then starts pushing to the choices (incorrect answers) list.
 		if(recordedAnswers >= numAnswers) {
 			choices.push_back(entry);
 		}

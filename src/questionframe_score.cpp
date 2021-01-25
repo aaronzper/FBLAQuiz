@@ -1,5 +1,6 @@
 #include "questionframes.h"
 
+// Macro to update the questionLabel with whether or not the question is correct or not
 // These backslashes may not be aligned if your tab-width isn't 4
 #define UPDATE_QUESTION_LABEL()						\
 	QString questionText = questionLabel->text();	\
