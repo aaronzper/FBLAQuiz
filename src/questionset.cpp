@@ -48,8 +48,28 @@ QuestionContainer QuestionSet::operator[](int i) {
 	return questions[i];
 }
 
-QuestionContainer QuestionSet::getRandomQuestion() {
-	return questions[rand() % questions.size()];
+std::vector<QuestionContainer> QuestionSet::getRandomQuestions(unsigned int count) {
+	if(count > questions.size()) throw std::runtime_error("Count of randomly picked questions to return greater than size of QuestionSet");
+	std::vector<unsigned int> indexes;
+	unsigned int i = 0;
+	while(1) {
+		unsigned int index = rand() % questions.size();
+		
+		if(std::count(indexes.begin(), indexes.end(), index)) { // If the number of instances of index in indexes is non-zero
+			continue; // Continue to generate another number
+		}
+
+		indexes.push_back(index);
+		i++;
+		if(i == count) break;
+	}
+
+	std::vector<QuestionContainer> output;
+	for(unsigned int index : indexes) {
+		output.push_back(questions[index]);
+	}
+
+	return output;
 }
 
 int QuestionSet::count() {

@@ -11,7 +11,7 @@ class QuestionSet {
 	public:
 		QuestionSet(QString path);
 		QuestionContainer operator[](int i);
-		QuestionContainer getRandomQuestion();
+		std::vector<QuestionContainer> getRandomQuestions(unsigned int count);
 		int count();
 	private:
 		std::vector<QuestionContainer> questions;

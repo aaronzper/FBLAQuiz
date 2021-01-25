@@ -35,6 +35,7 @@ void MessageHandler(QtMsgType type, const QMessageLogContext& context, const QSt
 
 int main(int argc, char *argv[])
 {
+	srand(time(NULL)); // Reseed the pseudorandom number generator
 	QString arg_str = argv[1]; // Convert to QString so we can compare it below (also because I couldn't get strcmp() to work)
 	if(arg_str == "generate") {
 		generateQuiz(); // Go into the CLI fblaquiz generation tool

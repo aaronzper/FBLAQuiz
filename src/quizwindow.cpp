@@ -24,26 +24,28 @@ QuizWindow::QuizWindow(QuestionSet qSet, QWidget *parent) : QWidget(parent) {
 
 	QVBoxLayout* layout = new QVBoxLayout(inner);
 	
-	for(int i = 0; i < qSet.count(); i++) {
-		frame_ptr f;	
-		switch(qSet[i].getType()) {
+	std::vector<QuestionContainer> questions = qSet.getRandomQuestions(5);
+	for(int i = 0; i < (int)questions.size(); i++) { // Iterate thru all the questions in the set of 5 we just generated
+		frame_ptr f; // Use a union since we dont know which type of ptr we'll need (and its better than a void*)
+		switch(questions[i].getType()) {
+			std::cout << i << std::endl;
 			case true_false:
-				f.tf = new TrueFalseFrame((TrueFalseQuestion)qSet[i], i + 1, inner);
+				f.tf = new TrueFalseFrame((TrueFalseQuestion)questions[i], i + 1, inner);
 				qFrames.push_back(f.tf);
 				layout->addWidget(f.tf);
 				break;
 			case multi_choice:
-				f.mc = new MultiChoiceFrame((MultiChoiceQuestion)qSet[i], i + 1, inner);
+				f.mc = new MultiChoiceFrame((MultiChoiceQuestion)questions[i], i + 1, inner);
 				qFrames.push_back(f.mc);
 				layout->addWidget(f.mc);
 				break;
 			case short_answer:
-				f.sa = new ShortAnswerFrame((ShortAnswerQuestion)qSet[i], i + 1, inner);
+				f.sa = new ShortAnswerFrame((ShortAnswerQuestion)questions[i], i + 1, inner);
 				qFrames.push_back(f.sa);
 				layout->addWidget(f.sa);
 				break;
 			case multi_answer:
-				f.ma = new MultiAnswerFrame((MultiAnswerQuestion)qSet[i], i + 1, inner);
+				f.ma = new MultiAnswerFrame((MultiAnswerQuestion)questions[i], i + 1, inner);
 				qFrames.push_back(f.ma);
 				layout->addWidget(f.ma);
 				break;
