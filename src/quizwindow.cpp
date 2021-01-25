@@ -79,7 +79,7 @@ void QuizWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void QuizWindow::buttonClicked() {
-	QString finalScore = "";
+	static QString finalScore = "";
 
 	try {
 		// The button renames itself to say "Print" once it's clicked for the first time, so we need to check which its on (Submit or Print) and act accordingly
