@@ -4,14 +4,18 @@
 #include <stdexcept>
 
 // Helper function any errors in parsing the fblaquiz file
-void malformedFile(const std::string& msg = "") {
-	std::string errorMsg = "Malformed quiz file";
+void malformedFile(const QString& msg = "", const QString& rawStr = "") {
+	QString errorMsg = "Malformed quiz file";
 	
 	if(msg != "") {
-		errorMsg += ": " + msg;	
+		errorMsg += ": " + msg;
+	}
+
+	if(rawStr != "") {
+		errorMsg += "\n\nMalformed line in question: " + rawStr;
 	}
 	
-	throw std::runtime_error(errorMsg);
+	throw std::runtime_error(errorMsg.toStdString());
 }
 
 // Helper function to split a line in the fblaquiz file into a list
@@ -32,7 +36,7 @@ TrueFalseQuestion::TrueFalseQuestion(const QString q, const bool a) {
 TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
-		malformedFile("Incorrect length of question entry");
+		malformedFile("Incorrect length of question entry", rawStr);
 
 	question = params[0];
 	if(params[1] == "1")
@@ -40,7 +44,7 @@ TrueFalseQuestion::TrueFalseQuestion(const QString rawStr) {
 	else if (params[1] == "0")
 		answer = false;
 	else
-		malformedFile("Invalid answer for true/false question");
+		malformedFile("Invalid answer for true/false question", rawStr);
 
 }
 
@@ -58,7 +62,7 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString q, const QString a, const
 MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
-		malformedFile("Incorrect length of question entry");
+		malformedFile("Incorrect length of question entry", rawStr);
 
 	question = params[0];
 	answer = params[1];
@@ -69,7 +73,7 @@ MultiChoiceQuestion::MultiChoiceQuestion(const QString rawStr) {
 	choices = params;
 
 	if(choices.contains(answer)) {
-		malformedFile("Multiple choice question cannot have the correct answer also be an incorrect choice");
+		malformedFile("Multiple choice question cannot have the correct answer also be an incorrect choice", rawStr);
 	}
 }
 
@@ -91,7 +95,7 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a, 
 ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 2))
-		malformedFile("Incorrect length of question entry");
+		malformedFile("Incorrect length of question entry", rawStr);
 
 	question = params[0];
 	
@@ -100,7 +104,7 @@ ShortAnswerQuestion::ShortAnswerQuestion(const QString rawStr) {
 	else if (params[1] == "0")
 		caseSensitive = false;	
 	else 
-		malformedFile("Invalid case-sensitivity value");
+		malformedFile("Invalid case-sensitivity value", rawStr);
 
 	params.removeFirst(); // Remove first two params (question and case sensitivity)
 	params.removeFirst(); 
@@ -126,7 +130,7 @@ MultiAnswerQuestion::MultiAnswerQuestion(const QString q, const QStringList& a, 
 MultiAnswerQuestion::MultiAnswerQuestion(const QString rawStr) {
 	QStringList params = getParams(rawStr);
 	if(!(params.size() >= 3))
-		malformedFile("Incorrect length of question entry");
+		malformedFile("Incorrect length of question entry", rawStr);
 
 	question = params[0];
 
