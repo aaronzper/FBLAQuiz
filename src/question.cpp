@@ -81,9 +81,10 @@ const QStringList MultiChoiceQuestion::getChoices() {
 	return choices;
 }
 
-ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a) {
+ShortAnswerQuestion::ShortAnswerQuestion(const QString q, const QStringList& a, bool case_sensitive) {
 	question = q;
 	answers = a;
+	caseSensitive = case_sensitive;
 }
 
 // Parser for short-answer question

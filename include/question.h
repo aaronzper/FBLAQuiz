@@ -39,7 +39,7 @@ class MultiChoiceQuestion : public Question {
 
 class ShortAnswerQuestion : public Question {
 	public:
-		ShortAnswerQuestion(const QString question, const QStringList& answers);
+		ShortAnswerQuestion(const QString question, const QStringList& answers, bool case_sensitive);
 		ShortAnswerQuestion(const QString rawStr);
 		const QStringList getAnswers();
 		bool isCaseSenstitive();
