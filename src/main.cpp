@@ -2,7 +2,6 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <QMessageBox>
-#include "quizgeneration.h"
 
 void MessageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
 	QMessageBox* box = new QMessageBox();
@@ -36,25 +35,18 @@ void MessageHandler(QtMsgType type, const QMessageLogContext& context, const QSt
 int main(int argc, char *argv[])
 {
 	srand(time(NULL)); // Reseed the pseudorandom number generator
-	QString arg_str = argv[1]; // Convert to QString so we can compare it below (also because I couldn't get strcmp() to work)
-	if(arg_str == "generate") {
-		generateQuiz(); // Go into the CLI fblaquiz generation tool
+	qInstallMessageHandler(MessageHandler); // Sets the message handler to be the function above. (So that function is called whenever Qt's error/warning/etc functions are called)
+
+	try {
+		QApplication a(argc, argv);
+
+		MainWindow win;
+		win.show(); // Shows the main window
+
+		return a.exec();
 	}
-	else {
-		qInstallMessageHandler(MessageHandler); // Sets the message handler to be the function above. (So that function is called whenever Qt's error/warning/etc functions are called)
-
-		try {
-			QApplication a(argc, argv);
-
-			MainWindow win;
-			win.show(); // Shows the main window
-
-			return a.exec();
-		}
-		catch (std::runtime_error e) { // If an uncaught std::runtime_error is thrown (which is how I indicate errors in this) print it and abort.
-			std::cerr << "Fatal Error: " << e.what() << std::endl;
-			abort();
-		}
+	catch (std::runtime_error e) { // If an uncaught std::runtime_error is thrown (which is how I indicate errors in this) print it and abort.
+		std::cerr << "Fatal Error: " << e.what() << std::endl;
+		abort();
 	}
-
 }
