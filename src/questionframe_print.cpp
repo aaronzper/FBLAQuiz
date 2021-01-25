@@ -1,9 +1,19 @@
 #include "questionframes.h"
 
 // Create htmlOutput variable with header + indent
-#define INIT_HTML_OUTPUT()												\
-	QString htmlOutput = "<h2>" + questionLabel->text() + "</h2>\n";	\
-	htmlOutput += "<div style=\"margin-left: 40px\">";					\
+#define INIT_HTML_OUTPUT()									\
+	QString qLabelText = questionLabel->text();				\
+	qLabelText.remove(qLabelText.size() - 1, 1);			\
+	QString htmlOutput = "<h2>" + qLabelText + "</h2>\n";	\
+	htmlOutput += "<i>";									\
+	if(isCorrect) {										\
+		htmlOutput += "Correct";							\
+	}														\
+	else {													\
+		htmlOutput += "Incorrect";							\
+	}														\
+	htmlOutput += "</i>";									\
+	htmlOutput += "<div style=\"margin-left: 40px\">";		\
 
 // End indent and return htmlOutput
 #define END_HTML_OUTPUT()	\
