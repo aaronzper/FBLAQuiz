@@ -8,6 +8,7 @@
 #include <QPrintDialog>
 #include <QPainter>
 #include <QTextDocument>
+#include <QDateTime>
 
 union frame_ptr {
 	TrueFalseFrame* tf;
@@ -101,7 +102,7 @@ void QuizWindow::buttonClicked() {
 		else { // "Print"
 			// Creates a string that to contain HTML code that is later rendered to show the report
 			QString htmlOutput = "<h1>FBLA Quiz Results</h1>\n";
-			htmlOutput += "<p>" + finalScore + "</p>\n";
+			htmlOutput += "<p>" + finalScore + " | " + QDateTime::currentDateTime().toString() + "</p>\n";
 
 			for(QuestionFrame* frame : qFrames) {
 				htmlOutput += frame->generateReport();
