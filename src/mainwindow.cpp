@@ -40,6 +40,7 @@ void MainWindow::buttonStartQuizClicked() {
 	try {
 		QuestionSet qSet(quizPath);
 		QuizWindow* win = new QuizWindow(qSet);
+		win->setWindowTitle("FBLA Quiz");
 		hide();
 		win->show();
 	}

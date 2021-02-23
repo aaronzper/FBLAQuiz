@@ -39,8 +39,10 @@ int main(int argc, char *argv[])
 
 	try {
 		QApplication a(argc, argv);
+		a.setApplicationName("FBLAQuiz");
 
 		MainWindow win;
+		win.setWindowTitle("FBLAQuiz Main Window");
 		win.show(); // Shows the main window
 
 		return a.exec();
